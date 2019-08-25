@@ -1,0 +1,9 @@
+/node_modules
+/lib
+/coverage
+
+.DS_Store
+yarn-debug.log*
+yarn-error.log*
+
+*.tgz

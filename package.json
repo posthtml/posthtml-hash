@@ -1,0 +1,73 @@
+{
+  "name": "posthtml-hash",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "PostHTML plugin for hashing static assets",
+  "author": "Eric Liu (https://github.com/metonym)",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "develop": "tsc -w",
+    "build": "rm -rf lib && tsc -p tsconfig.prod.json",
+    "lint": "tslint --fix -p . -c tslint.json",
+    "test": "jest --coverage",
+    "test:tdd": "jest --watch",
+    "prepublishOnly": "yarn build"
+  },
+  "dependencies": {
+    "hasha": "^5.0.0",
+    "posthtml": "^0.11.4"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "@types/jest": "^24.0.18",
+    "husky": "^3.0.4",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^1.11.1",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.19.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.5.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint && pretty-quick --staged",
+      "pre-push": "yarn test",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "watchPathIgnorePatterns": [
+      "<rootDir>/src/tests/__fixtures__"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/metonym/posthtml-hash.git"
+  },
+  "homepage": "https://github.com/metonym/posthtml-hash",
+  "keywords": [
+    "posthtml",
+    "posthtml plugin",
+    "hash",
+    "asset",
+    "cache"
+  ],
+  "files": [
+    "lib"
+  ],
+  "bugs": "https://github.com/metonym/posthtml-hash/issues"
+}

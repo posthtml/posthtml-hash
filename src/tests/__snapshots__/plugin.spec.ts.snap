@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`posthtml-hash matches the snapshot – custom hash length 1`] = `
+"
+        <html>
+          <head>
+            <link rel=\\"stylesheet\\" href=\\"bundle.min.9a6cf95c41.css\\">
+          </head>
+          <body>
+            <script src=\\"bundle.min.b0dcc67ffc.js\\"></script>
+          </body>
+        </html>
+      "
+`;
+
+exports[`posthtml-hash matches the snapshot – default options 1`] = `
+"
+        <html>
+          <head>
+            <link rel=\\"stylesheet\\" href=\\"bundle.min.9a6cf95c41e87b9dc102.css\\">
+          </head>
+          <body>
+            <script src=\\"bundle.min.b0dcc67ffc1fd562f212.js\\"></script>
+          </body>
+        </html>
+      "
+`;
