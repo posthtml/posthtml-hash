@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+- Remove unhashed asset files, or require an "outDir" option
+
 - Add optional files field to options parameter that matches specific file names
 
 - Incorporate the `[hash:number]` format to specify the hash length
