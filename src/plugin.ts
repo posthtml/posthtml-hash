@@ -39,7 +39,7 @@ function plugin(options = DEFAULT_OPTIONS) {
         const hashedFileName = hashFileName(fileName, hash);
         const hashedFile = path.join(process.cwd(), pathToFile, hashedFileName);
 
-        fs.writeFileSync(hashedFile, buffer);
+        fs.renameSync(file, hashedFile);
 
         if (attrs.href) {
           node.attrs!.href = hashedFileName;
