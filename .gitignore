@@ -1,6 +1,7 @@
 /node_modules
 /lib
 /coverage
+/examples
 
 .DS_Store
 yarn-debug.log*
