@@ -29,7 +29,7 @@ describe('posthtml-hash', () => {
         </html>
       `
       )
-      .then((result: { html: string }) => {
+      .then(result => {
         expect(result.html).toMatchSnapshot();
       });
   });
@@ -49,7 +49,7 @@ describe('posthtml-hash', () => {
         </html>
       `
       )
-      .then((result: { html: string }) => {
+      .then(result => {
         expect(result.html).toMatchSnapshot();
       });
   });

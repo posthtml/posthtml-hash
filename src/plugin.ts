@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { ITree } from 'posthtml';
+import { PostHTMLTree } from 'posthtml';
 import { createHash, hashFileName, processFile } from './utils';
 
 const DEFAULT_PATH = '';
@@ -11,7 +11,7 @@ const DEFAULT_OPTIONS: IOptions = {
 };
 
 function plugin(options = DEFAULT_OPTIONS) {
-  return function posthtmlHash(tree: ITree) {
+  return function posthtmlHash(tree: PostHTMLTree) {
     const nonEmptyString = new RegExp(/\S+/);
 
     const matchers = [
