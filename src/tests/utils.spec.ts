@@ -4,7 +4,7 @@ import { createHash, hashFileName, processFile } from '../utils';
 
 describe('createHash', () => {
   test('hash length – 20 (default)', () => {
-    const file = path.join(__dirname, '__fixtures__', 'bundle.min.js');
+    const file = path.join(__dirname, '__fixtures__/original', 'bundle.min.js');
     const buffer = fs.readFileSync(file);
     const hash = createHash(buffer);
 
@@ -13,7 +13,7 @@ describe('createHash', () => {
   });
 
   test('hash length – 10', () => {
-    const file = path.join(__dirname, '__fixtures__', 'bundle.min.js');
+    const file = path.join(__dirname, '__fixtures__/original', 'bundle.min.js');
     const buffer = fs.readFileSync(file);
     const hash = createHash(buffer, 10);
 
@@ -22,7 +22,7 @@ describe('createHash', () => {
   });
 
   test('hash length has to be greater than 1', () => {
-    const file = path.join(__dirname, '__fixtures__', 'bundle.min.js');
+    const file = path.join(__dirname, '__fixtures__/original', 'bundle.min.js');
     const buffer = fs.readFileSync(file);
 
     expect(() => {
@@ -50,7 +50,7 @@ describe('hashFileName', () => {
 
 describe('processFile', () => {
   it('throws an error if the file does not exist', () => {
-    const fileName = path.join(__dirname, '__fixtures__', 'bundle.js');
+    const fileName = path.join(__dirname, '__fixtures__/original', 'bundle.js');
     expect(() => {
       processFile(fileName, () => true);
     }).toThrowError(`Could not find file at "${fileName}"`);
@@ -58,7 +58,11 @@ describe('processFile', () => {
 
   it('invokes the callback if the file exists', () => {
     const cb = jest.fn();
-    const fileName = path.join(__dirname, '__fixtures__', 'bundle.min.js');
+    const fileName = path.join(
+      __dirname,
+      '__fixtures__/original',
+      'bundle.min.js'
+    );
     processFile(fileName, cb);
     expect(cb).toHaveBeenCalledTimes(1);
   });

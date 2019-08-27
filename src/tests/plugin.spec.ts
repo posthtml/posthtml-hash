@@ -1,10 +1,22 @@
+import fs from 'fs';
+import path from 'path';
 import posthtml from 'posthtml';
 import plugin from '../';
 
 describe('posthtml-hash', () => {
+  beforeEach(() => {
+    const folder = {
+      input: '__fixtures__/original',
+      output: '__fixtures__/processed'
+    };
+
+    copyFixture('bundle.min.css', folder);
+    copyFixture('bundle.min.js', folder);
+  });
+
   it('matches the snapshot – default options', () => {
     posthtml()
-      .use(plugin({ path: 'src/tests/__fixtures__' }))
+      .use(plugin({ path: 'src/tests/__fixtures__/processed' }))
       .process(
         `
         <html>
@@ -24,7 +36,7 @@ describe('posthtml-hash', () => {
 
   it('matches the snapshot – custom hash length', () => {
     posthtml()
-      .use(plugin({ path: 'src/tests/__fixtures__', hashLength: 10 }))
+      .use(plugin({ path: 'src/tests/__fixtures__/processed', hashLength: 10 }))
       .process(
         `
         <html>
@@ -42,3 +54,11 @@ describe('posthtml-hash', () => {
       });
   });
 });
+
+function copyFixture(
+  fileName: string,
+  folder: { input: string; output: string }
+) {
+  const file = path.join(__dirname, folder.input, fileName);
+  fs.copyFileSync(file, path.join(__dirname, folder.output, fileName));
+}
