@@ -1,0 +1,15 @@
+{
+  "name": "basic",
+  "version": "1.0.0",
+  "main": "script.js",
+  "private": true,
+  "scripts": {
+    "clean": "node clean.js",
+    "posthtml": "node script.js"
+  },
+  "devDependencies": {
+    "fs-extra": "^8.1.0",
+    "posthtml": "^0.11.4",
+    "posthtml-hash": "^0.2.0"
+  }
+}

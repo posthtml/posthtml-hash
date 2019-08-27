@@ -55,7 +55,7 @@ const html = fs.readFileSync('./index.html');
 posthtml()
   .use(hash())
   .process(html)
-  .then(result => fs.writeFileSync('./after.html', result.html));
+  .then(result => fs.writeFileSync('./index.html', result.html));
 ```
 
 ## Options
