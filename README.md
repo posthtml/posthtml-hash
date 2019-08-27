@@ -70,9 +70,22 @@ const { hash } = require('posthtml-hash');
 const html = fs.readFileSync('./public/index.html');
 
 posthtml()
-  .use(hash({ path: 'public' }))
+  .use(
+    hash({
+      /**
+       * Relative path to processed HTML file
+       */
+      path: 'public',
+
+      /**
+       * Length of hash
+       * Default is 20
+       */
+      hashLength: 10
+    })
+  )
   .process(html)
-  .then(result => fs.writeFileSync('./after.html', result.html));
+  .then(result => fs.writeFileSync('./index.html', result.html));
 ```
 
 ## [Examples](examples)
