@@ -1,12 +1,12 @@
 # examples/basic
 
-> Example demonstrating basic usage of the [posthtml-hash](../..) plugin.
+> Basic usage of the [posthtml-hash](../..) plugin.
 
-The [original](original) folder contains example assets for reference; they are not directly manipulated in this example. The corresponding output is the [processed](processed) folder.
+The assets in the [original/](original) folder contains unprocessed assets for reference; they are not directly manipulated in this example. The corresponding output is the [processed/](processed) folder.
 
 ## Script
 
-The [script.js](script.js) runs posthtml and posthtml plugin.
+The [script.js](script.js) file contains the script that runs posthtml.
 
 ```js
 // script.js
@@ -17,8 +17,12 @@ const { hash } = require('posthtml-hash');
 const html = fs.readFileSync('./processed/index.html');
 
 posthtml()
-  /* specify the relative path to the folder containing the index.html */
-  .use(hash({ path: 'processed' }))
+  .use(
+    hash({
+      /* specify the path to the folder relative to this file (script.js) */
+      path: 'processed'
+    })
+  )
   .process(html)
   .then(result => {
     /* overwrite the existing index.html with the processed markup */
