@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Incorporate the `[hash:number]` format to specify the hash length
 
+## [0.2.1](https://github.com/metonym/posthtml-hash/releases/tag/v0.2.1) - 2019-09-21
+
+- Upgrade posthtml version from 0.15 to 0.16
+
+- Refactor typings
+
 ## [0.2.0](https://github.com/metonym/posthtml-hash/releases/tag/v0.2.0) - 2019-08-26
 
 - Rename existing hashed file instead writing to a new file
