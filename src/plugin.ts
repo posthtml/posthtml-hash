@@ -14,12 +14,7 @@ function plugin(options = DEFAULT_OPTIONS) {
   return function posthtmlHash(tree: PostHTML.Node) {
     const nonEmptyString = new RegExp(/\S+/);
 
-    interface IMatcher {
-      tag: PostHTML.StringMatcher;
-      attrs: PostHTML.AttrMatcher;
-    }
-
-    const matchers: IMatcher[] = [
+    const matchers: IPostHTMLHashMatcher[] = [
       { tag: 'link', attrs: { rel: 'stylesheet', href: nonEmptyString } },
       { tag: 'script', attrs: { src: nonEmptyString } }
     ];
@@ -61,6 +56,11 @@ function plugin(options = DEFAULT_OPTIONS) {
 interface IOptions {
   path?: string;
   hashLength?: number;
+}
+
+interface IPostHTMLHashMatcher {
+  tag: PostHTML.StringMatcher;
+  attrs: PostHTML.AttrMatcher;
 }
 
 export { plugin, DEFAULT_HASH_LENGTH };
