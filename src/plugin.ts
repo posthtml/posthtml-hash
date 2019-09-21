@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { PostHTMLTree } from 'posthtml';
+import { PostHTML } from 'posthtml';
 import { createHash, hashFileName, processFile } from './utils';
 
 const DEFAULT_PATH = '';
@@ -11,10 +11,15 @@ const DEFAULT_OPTIONS: IOptions = {
 };
 
 function plugin(options = DEFAULT_OPTIONS) {
-  return function posthtmlHash(tree: PostHTMLTree) {
+  return function posthtmlHash(tree: PostHTML.Node) {
     const nonEmptyString = new RegExp(/\S+/);
 
-    const matchers = [
+    interface IMatcher {
+      tag: PostHTML.StringMatcher;
+      attrs: PostHTML.AttrMatcher;
+    }
+
+    const matchers: IMatcher[] = [
       { tag: 'link', attrs: { rel: 'stylesheet', href: nonEmptyString } },
       { tag: 'script', attrs: { src: nonEmptyString } }
     ];
