@@ -102,9 +102,9 @@ See the [PostHTML Guidelines](https://github.com/posthtml/posthtml/tree/master/d
 
 [npm]: https://img.shields.io/npm/v/posthtml-hash.svg?color=blue
 [npm-url]: https://npmjs.com/package/posthtml-hash
-[deps]: https://david-dm.org/metonym/posthtml-hash.svg
-[deps-url]: https://david-dm.org/metonym/posthtml-hash
-[build]: https://travis-ci.com/metonym/posthtml-hash.svg?branch=master
-[build-badge]: https://travis-ci.com/metonym/posthtml-hash
-[codecov]: https://codecov.io/gh/metonym/posthtml-hash
-[codecov-shield]: https://img.shields.io/codecov/c/github/metonym/posthtml-hash.svg
+[deps]: https://david-dm.org/posthtml/posthtml-hash.svg
+[deps-url]: https://david-dm.org/posthtml/posthtml-hash
+[build]: https://travis-ci.com/posthtml/posthtml-hash.svg?branch=master
+[build-badge]: https://travis-ci.com/posthtml/posthtml-hash
+[codecov]: https://codecov.io/gh/posthtml/posthtml-hash
+[codecov-shield]: https://img.shields.io/codecov/c/github/posthtml/posthtml-hash.svg
