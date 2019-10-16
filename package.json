@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "hasha": "^5.0.0",
-    "posthtml": "^0.11.6"
+    "posthtml": "^0.12.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
