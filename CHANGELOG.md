@@ -13,9 +13,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Incorporate the `[hash:number]` format to specify the hash length
 
+## [0.2.2](https://github.com/metonym/posthtml-hash/releases/tag/v0.2.2) - 2019-10-17
+
+- Upgrade posthtml version from 0.11.16 to 0.12.0
+
+- Upgrade hasha from 5.0.0 to 5.1.0
+
+- Upgrade development dependencies (@types/jest, husky, prett-quick)
+
 ## [0.2.1](https://github.com/metonym/posthtml-hash/releases/tag/v0.2.1) - 2019-09-21
 
-- Upgrade posthtml version from 0.15 to 0.16
+- Upgrade posthtml version from 0.11.15 to 0.11.16
 
 - Refactor typings
 
