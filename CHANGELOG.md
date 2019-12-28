@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Incorporate the `[hash:number]` format to specify the hash length
 
+## [0.2.3](https://github.com/metonym/posthtml-hash/releases/tag/v0.2.3) - 2019-12-27
+
+- Fix bug by omitting an error if the file does not exist (e.g. external URL)
+  ([#22](https://github.com/posthtml/posthtml-hash/issues/22))
+
 ## [0.2.2](https://github.com/metonym/posthtml-hash/releases/tag/v0.2.2) - 2019-10-17
 
 - Upgrade posthtml version from 0.11.16 to 0.12.0
