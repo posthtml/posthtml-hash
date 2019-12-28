@@ -49,20 +49,30 @@ describe('hashFileName', () => {
 });
 
 describe('processFile', () => {
-  it('throws an error if the file does not exist', () => {
+  it('does not invoke the callback if the file does not exist', () => {
     const fileName = path.join(__dirname, '__fixtures__/original', 'bundle.js');
-    expect(() => {
-      processFile(fileName, () => true);
-    }).toThrowError(`Could not find file at "${fileName}"`);
+    const cb = jest.fn();
+
+    processFile(fileName, cb);
+    expect(cb).not.toHaveBeenCalled();
+  });
+
+  it('does not invoke the callback if the file is a URL', () => {
+    const fileName = 'https://fonts.googleapis.com';
+    const cb = jest.fn();
+
+    processFile(fileName, cb);
+    expect(cb).not.toHaveBeenCalled();
   });
 
   it('invokes the callback if the file exists', () => {
-    const cb = jest.fn();
     const fileName = path.join(
       __dirname,
       '__fixtures__/original',
       'bundle.min.js'
     );
+    const cb = jest.fn();
+
     processFile(fileName, cb);
     expect(cb).toHaveBeenCalledTimes(1);
   });

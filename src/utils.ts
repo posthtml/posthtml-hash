@@ -22,8 +22,6 @@ function hashFileName(fileName: string, hash: string) {
 function processFile(file: string, cb: () => void) {
   if (fs.existsSync(file)) {
     cb.call([]);
-  } else {
-    throw new Error(`Could not find file at "${file}"`);
   }
 }
 
