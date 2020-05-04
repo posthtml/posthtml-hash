@@ -1,26 +1,30 @@
-import fs from 'fs';
-import path from 'path';
-import posthtml from 'posthtml';
-import plugin from '../';
+import fs from "fs";
+import path from "path";
+import posthtml from "posthtml";
+import plugin from "../";
 
-describe('posthtml-hash', () => {
+describe("posthtml-hash", () => {
   beforeEach(() => {
     const folder = {
-      input: '__fixtures__/original',
-      output: '__fixtures__/processed'
+      input: "__fixtures__/original",
+      output: "__fixtures__/processed",
     };
 
-    copyFixture('bundle.min.css', folder);
-    copyFixture('bundle.min.js', folder);
+    copyFixture("bundle.min.css", folder);
+    copyFixture("bundle.min.js", folder);
   });
 
-  it('matches the snapshot – default options', () => {
+  it("matches the snapshot – css only", () => {
     posthtml()
-      .use(plugin({ path: 'src/tests/__fixtures__/processed' }))
+      .use(plugin({ path: "src/tests/__fixtures__/processed", js: false }))
       .process(
         `
         <html>
           <head>
+            <link
+              rel="stylesheet"
+              href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i"
+            />
             <link rel="stylesheet" href="bundle.min.css" />
           </head>
           <body>
@@ -29,14 +33,68 @@ describe('posthtml-hash', () => {
         </html>
       `
       )
-      .then(result => {
+      .then((result) => {
         expect(result.html).toMatchSnapshot();
       });
   });
 
-  it('matches the snapshot – custom hash length', () => {
+  it("matches the snapshot – js only", () => {
     posthtml()
-      .use(plugin({ path: 'src/tests/__fixtures__/processed', hashLength: 10 }))
+      .use(plugin({ path: "src/tests/__fixtures__/processed", css: false }))
+      .process(
+        `
+        <html>
+          <head>
+            <link
+              rel="stylesheet"
+              href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i"
+            />
+            <link rel="stylesheet" href="bundle.min.css" />
+          </head>
+          <body>
+            <script src="bundle.min.js"></script>
+          </body>
+        </html>
+      `
+      )
+      .then((result) => {
+        expect(result.html).toMatchSnapshot();
+      });
+  });
+
+  it("matches the snapshot – no hash", () => {
+    posthtml()
+      .use(
+        plugin({
+          path: "src/tests/__fixtures__/processed",
+          css: false,
+          js: false,
+        })
+      )
+      .process(
+        `
+        <html>
+          <head>
+            <link
+              rel="stylesheet"
+              href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i"
+            />
+            <link rel="stylesheet" href="bundle.min.css" />
+          </head>
+          <body>
+            <script src="bundle.min.js"></script>
+          </body>
+        </html>
+      `
+      )
+      .then((result) => {
+        expect(result.html).toMatchSnapshot();
+      });
+  });
+
+  it("matches the snapshot – default options", () => {
+    posthtml()
+      .use(plugin({ path: "src/tests/__fixtures__/processed" }))
       .process(
         `
         <html>
@@ -49,7 +107,27 @@ describe('posthtml-hash', () => {
         </html>
       `
       )
-      .then(result => {
+      .then((result) => {
+        expect(result.html).toMatchSnapshot();
+      });
+  });
+
+  it("matches the snapshot – custom hash length", () => {
+    posthtml()
+      .use(plugin({ path: "src/tests/__fixtures__/processed", hashLength: 10 }))
+      .process(
+        `
+        <html>
+          <head>
+            <link rel="stylesheet" href="bundle.min.css" />
+          </head>
+          <body>
+            <script src="bundle.min.js"></script>
+          </body>
+        </html>
+      `
+      )
+      .then((result) => {
         expect(result.html).toMatchSnapshot();
       });
   });

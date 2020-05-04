@@ -7,11 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-- Remove unhashed asset files, or require an "outDir" option
-
 - Add optional files field to options parameter that matches specific file names
 
 - Incorporate the `[hash:number]` format to specify the hash length
+
+## [0.3.0](https://github.com/metonym/posthtml-hash/releases/tag/v0.3.0) - 2020-05-04
+
+- Support omitting CSS/JS files to hash in `options`
 
 ## [0.2.3](https://github.com/metonym/posthtml-hash/releases/tag/v0.2.3) - 2019-12-27
 
