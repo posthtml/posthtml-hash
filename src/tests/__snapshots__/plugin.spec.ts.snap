@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`posthtml-hash matches the snapshot – css only 1`] = `
+"
+        <html>
+          <head>
+            <link rel=\\"stylesheet\\" href=\\"https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i\\">
+            <link rel=\\"stylesheet\\" href=\\"bundle.min.9a6cf95c41e87b9dc102.css\\">
+          </head>
+          <body>
+            <script src=\\"bundle.min.js\\"></script>
+          </body>
+        </html>
+      "
+`;
+
 exports[`posthtml-hash matches the snapshot – custom hash length 1`] = `
 "
         <html>
@@ -21,6 +35,34 @@ exports[`posthtml-hash matches the snapshot – default options 1`] = `
           </head>
           <body>
             <script src=\\"bundle.min.b0dcc67ffc1fd562f212.js\\"></script>
+          </body>
+        </html>
+      "
+`;
+
+exports[`posthtml-hash matches the snapshot – js only 1`] = `
+"
+        <html>
+          <head>
+            <link rel=\\"stylesheet\\" href=\\"https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i\\">
+            <link rel=\\"stylesheet\\" href=\\"bundle.min.css\\">
+          </head>
+          <body>
+            <script src=\\"bundle.min.b0dcc67ffc1fd562f212.js\\"></script>
+          </body>
+        </html>
+      "
+`;
+
+exports[`posthtml-hash matches the snapshot – no hash 1`] = `
+"
+        <html>
+          <head>
+            <link rel=\\"stylesheet\\" href=\\"https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i\\">
+            <link rel=\\"stylesheet\\" href=\\"bundle.min.css\\">
+          </head>
+          <body>
+            <script src=\\"bundle.min.js\\"></script>
           </body>
         </html>
       "
