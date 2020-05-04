@@ -1,9 +1,7 @@
-/node_modules
-/lib
-/coverage
-
 .DS_Store
+/.vscode
+/coverage
+/lib
+/node_modules
 yarn-debug.log*
 yarn-error.log*
-
-*.tgz
