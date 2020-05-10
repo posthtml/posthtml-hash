@@ -7,9 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-- Add optional files field to options parameter that matches specific file names
+<!--
+## [1.0.0](https://github.com/metonym/posthtml-hash/releases/tag/v1.0.0) - 2020-05-09
 
-- Incorporate the `[hash:number]` format to specify the hash length
+- Replace `jest` with Node.js native `assert` (removes ~250k sub-dependencies) -->
 
 ## [0.3.0](https://github.com/metonym/posthtml-hash/releases/tag/v0.3.0) - 2020-05-04
 

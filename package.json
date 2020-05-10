@@ -4,12 +4,11 @@
   "license": "MIT",
   "description": "PostHTML plugin for hashing static assets",
   "author": "Eric Liu (https://github.com/metonym)",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "lib/plugin.js",
+  "types": "lib/plugin.d.ts",
   "scripts": {
-    "develop": "tsc -w",
-    "test": "jest --coverage",
-    "test:tdd": "jest --watch",
+    "test": "tsnd src/tests",
+    "test:tdd": "tsnd --respawn src/tests",
     "prepack": "tsc"
   },
   "dependencies": {
@@ -17,16 +16,9 @@
     "posthtml": "^0.12.0"
   },
   "devDependencies": {
-    "@types/jest": "^25.2.1",
-    "jest": "^25.5.4",
-    "ts-jest": "^25.4.0",
+    "@types/node": "^13.13.5",
+    "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.6.3"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "watchPathIgnorePatterns": [
-      "<rootDir>/src/tests/__fixtures__"
-    ]
   },
   "repository": {
     "type": "git",

@@ -1,7 +1,7 @@
 .DS_Store
 /.vscode
-/coverage
 /lib
 /node_modules
+/src/tests/__fixtures__/processed
 yarn-debug.log*
 yarn-error.log*

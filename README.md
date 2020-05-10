@@ -2,17 +2,17 @@
 
 [![NPM][npm]][npm-url]
 
-`posthtml-hash` is a [PostHTML](https://github.com/posthtml/posthtml) plugin for hashing static CSS/JS assets to enable caching. [hasha](https://www.npmjs.com/package/hasha) is used to generate hashes.
+`posthtml-hash` is a [PostHTML](https://github.com/posthtml/posthtml) plugin for hashing static assets to enable caching.
 
 ```diff
 <html>
   <head>
--   <link rel="stylesheet" href="stylesheet.css" />
-+   <link rel="stylesheet" href="stylesheet.9a6cf95c41e87b9dc102.css" />
+-   <link rel="stylesheet" href="styles.[hash].css" />
++   <link rel="stylesheet" href="styles.9a6cf95c41e87b9dc102.css" />
   </head>
   <body>
--   <script src="main.js"></script>
-+   <script src="main.b0dcc67ffc1fd562f212.js"></script>
+-   <script src="src.[hash].js"></script>
++   <script src="src.b0dcc67ffc1fd562f212.js"></script>
   </body>
 </html>
 ```
@@ -22,61 +22,90 @@
 ```bash
 yarn add -D posthtml-hash
 # OR
-npm i posthtml-hash
+npm i -D posthtml-hash
 ```
 
 ## Usage
 
+### Input
+
+The plugin will only attempt to hash files with `[hash]` in the name.
+
+```html
+<html>
+  <head>
+    <!-- not hashed -->
+    <link rel="stylesheet" href="reset.css" />
+
+    <!-- hashed -->
+    <link rel="stylesheet" href="style.[hash].css" />
+  </head>
+  <body>
+    <!-- not hashed -->
+    <script src="analytics.js"></script>
+
+    <!-- hashed -->
+    <script src="src.[hash].js"></script>
+  </body>
+</html>
+```
+
+### Node.js
+
+The recommended usage is to hash static assets in your post-build process using Node.js.
+
+Let's say that you use Rollup to bundle and minify your CSS and JavaScript. The template `index.html` is copied to the `build` folder.
+
+A post-build script could look like:
+
 ```js
+// postbuild.js
 const fs = require("fs");
 const posthtml = require("posthtml");
 const { hash } = require("posthtml-hash");
 
-const html = fs.readFileSync("./index.html");
+const html = fs.readFileSync("./build/index.html");
 
 posthtml()
-  .use(hash())
+  .use(hash({ path: "build" }))
   .process(html)
-  .then((result) => fs.writeFileSync("./index.html", result.html));
+  .then((result) => fs.writeFileSync("./build/index.html", result.html));
 ```
 
-## Options
+For convenience, you can add the post-build script to your package.json. The `postbuild` script is automatically invoked following the `build` script.
+
+```json
+{
+  "scripts": {
+    "build": "rollup -c",
+    "postbuild": "node postbuild.js"
+  }
+}
+```
+
+### Options
 
 This plugin assumes that the file to process is in the same directory as the posthtml script. If not, specify the relative path to the html file in `options.path`:
 
 ```js
-const fs = require("fs");
-const posthtml = require("posthtml");
-const { hash } = require("posthtml-hash");
+hash({
+  /**
+   * Relative path to processed HTML file
+   */
+  path: "public", // default: ""
+});
+```
 
-const html = fs.readFileSync("./public/index.html");
+### Custom Hash Length
 
-posthtml()
-  .use(
-    hash({
-      /**
-       * Relative path to processed HTML file
-       */
-      path: "public", // default: ""
+Customize the hash length by specifying an integer after the `hash:{NUMBER}`. The default hash length is `20`.
 
-      /**
-       * Length of hash
-       */
-      hashLength: 10, // default: 20
+```html
+<script src="src.[hash].js"></script>
+<!-- src.b0dcc67ffc1fd562f212.js -->
 
-      /**
-       * Hash CSS files
-       */
-      css: true, // default: true
-
-      /**
-       * Hash JS files
-       */
-      js: true, // default: true
-    })
-  )
-  .process(html)
-  .then((result) => fs.writeFileSync("./index.html", result.html));
+<script src="src.[hash:8].js"></script>
+<!-- src.b0dcc67f.js -->
 ```
 
 ## [Examples](examples)
