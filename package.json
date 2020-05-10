@@ -4,8 +4,8 @@
   "license": "MIT",
   "description": "PostHTML plugin for hashing static assets",
   "author": "Eric Liu (https://github.com/metonym)",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "lib/plugin.js",
+  "types": "lib/plugin.d.ts",
   "scripts": {
     "test": "tsnd src/tests",
     "test:tdd": "tsnd --respawn src/tests",
