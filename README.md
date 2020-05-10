@@ -52,11 +52,9 @@ The plugin will only attempt to hash files with `[hash]` in the name.
 
 ### Node.js
 
-The recommended usage is to hash static assets in your post-build process using Node.js.
+The recommended usage of this plugin is to incorporate it in your post-build process.
 
 Let's say that you use Rollup to bundle and minify your CSS and JavaScript. The template `index.html` is copied to the `build` folder.
-
-A post-build script could look like:
 
 ```js
 // postbuild.js
