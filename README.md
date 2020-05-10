@@ -50,17 +50,37 @@ The plugin will only attempt to hash files with `[hash]` in the name.
 </html>
 ```
 
+### Node.js
+
+The recommended usage is to hash static assets in your post-build process using Node.js.
+
+Let's say that you use Rollup to bundle and minify your CSS and JavaScript. The template `index.html` is copied to the `build` folder.
+
+A post-build script could look like:
+
 ```js
+// postbuild.js
 const fs = require("fs");
 const posthtml = require("posthtml");
 const { hash } = require("posthtml-hash");
 
-const html = fs.readFileSync("./index.html");
+const html = fs.readFileSync("./build/index.html");
 
 posthtml()
-  .use(hash())
+  .use(hash({ path: "build" }))
   .process(html)
-  .then((result) => fs.writeFileSync("./index.html", result.html));
+  .then((result) => fs.writeFileSync("./build/index.html", result.html));
+```
+
+For convenience, you can add the post-build script to your package.json. The `postbuild` script is automatically invoked following the `build` script.
+
+```json
+{
+  "scripts": {
+    "build": "rollup -c",
+    "postbuild": "node postbuild.js"
+  }
+}
 ```
 
 ### Options
