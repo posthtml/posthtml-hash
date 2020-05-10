@@ -2,17 +2,17 @@
 
 [![NPM][npm]][npm-url]
 
-`posthtml-hash` is a [PostHTML](https://github.com/posthtml/posthtml) plugin for hashing static CSS/JS assets to enable caching.
+`posthtml-hash` is a [PostHTML](https://github.com/posthtml/posthtml) plugin for hashing static assets to enable caching.
 
 ```diff
 <html>
   <head>
--   <link rel="stylesheet" href="stylesheet.[hash].css" />
-+   <link rel="stylesheet" href="stylesheet.9a6cf95c41e87b9dc102.css" />
+-   <link rel="stylesheet" href="styles.[hash].css" />
++   <link rel="stylesheet" href="styles.9a6cf95c41e87b9dc102.css" />
   </head>
   <body>
--   <script src="main.[hash].js"></script>
-+   <script src="main.b0dcc67ffc1fd562f212.js"></script>
+-   <script src="src.[hash].js"></script>
++   <script src="src.b0dcc67ffc1fd562f212.js"></script>
   </body>
 </html>
 ```
@@ -27,6 +27,29 @@ npm i -D posthtml-hash
 
 ## Usage
 
+### Input
+
+The plugin will only attempt to hash files with `[hash]` in the name.
+
+```html
+<html>
+  <head>
+    <!-- not hashed -->
+    <link rel="stylesheet" href="reset.css" />
+
+    <!-- hashed -->
+    <link rel="stylesheet" href="style.[hash].css" />
+  </head>
+  <body>
+    <!-- not hashed -->
+    <script src="analytics.js"></script>
+
+    <!-- hashed -->
+    <script src="src.[hash].js"></script>
+  </body>
+</html>
+```
+
 ```js
 const fs = require("fs");
 const posthtml = require("posthtml");
@@ -40,43 +63,29 @@ posthtml()
   .then((result) => fs.writeFileSync("./index.html", result.html));
 ```
 
-## Options
+### Options
 
 This plugin assumes that the file to process is in the same directory as the posthtml script. If not, specify the relative path to the html file in `options.path`:
 
 ```js
-const fs = require("fs");
-const posthtml = require("posthtml");
-const { hash } = require("posthtml-hash");
+hash({
+  /**
+   * Relative path to processed HTML file
+   */
+  path: "public", // default: ""
+});
+```
 
-const html = fs.readFileSync("./public/index.html");
+### Custom Hash Length
 
-posthtml()
-  .use(
-    hash({
-      /**
-       * Relative path to processed HTML file
-       */
-      path: "public", // default: ""
+Customize the hash length by specifying an integer after the `hash:{NUMBER}`. The default hash length is `20`.
 
-      /**
-       * Length of hash
-       */
-      hashLength: 10, // default: 20
+```html
+<script src="src.[hash].js"></script>
+<!-- src.b0dcc67ffc1fd562f212.js -->
 
-      /**
-       * Hash CSS files
-       */
-      css: true, // default: true
-
-      /**
-       * Hash JS files
-       */
-      js: true, // default: true
-    })
-  )
-  .process(html)
-  .then((result) => fs.writeFileSync("./index.html", result.html));
+<script src="src.[hash:8].js"></script>
+<!-- src.b0dcc67f.js -->
 ```
 
 ## [Examples](examples)
