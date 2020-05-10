@@ -5,11 +5,11 @@
   "private": true,
   "scripts": {
     "clean": "node clean.js",
-    "posthtml": "node script.js"
+    "hash": "node script.js"
   },
   "devDependencies": {
-    "fs-extra": "^8.1.0",
-    "posthtml": "^0.11.4",
+    "fs-extra": "^9.0.0",
+    "posthtml": "^0.13.0",
     "posthtml-hash": "../../"
   }
 }

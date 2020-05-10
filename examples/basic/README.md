@@ -10,23 +10,23 @@ The [script.js](script.js) file contains the script that runs posthtml.
 
 ```js
 // script.js
-const fs = require('fs');
-const posthtml = require('posthtml');
-const { hash } = require('posthtml-hash');
+const fs = require("fs");
+const posthtml = require("posthtml");
+const { hash } = require("posthtml-hash");
 
-const html = fs.readFileSync('./processed/index.html');
+const html = fs.readFileSync("./processed/index.html");
 
 posthtml()
   .use(
     hash({
       /* specify the path to the folder relative to this file (script.js) */
-      path: 'processed'
+      path: "processed",
     })
   )
   .process(html)
-  .then(result => {
+  .then((result) => {
     /* overwrite the existing index.html with the processed markup */
-    fs.writeFileSync('./processed/index.html', result.html);
+    fs.writeFileSync("./processed/index.html", result.html);
   });
 ```
 
@@ -35,7 +35,7 @@ posthtml()
 Clone the repo and install the dependencies:
 
 ```bash
-git clone git@github.com:metonym/posthtml-hash.git
+git clone git@github.com:posthtml/posthtml-hash.git
 cd posthtml-hash/examples/basic
 yarn install
 ```
@@ -43,7 +43,7 @@ yarn install
 Run the script:
 
 ```bash
-yarn posthtml
+yarn hash
 ```
 
 To restore the processed folder to its unprocessed state, run:
