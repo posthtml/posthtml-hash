@@ -4,24 +4,66 @@ import fs from "fs";
 import path from "path";
 import posthtml from "posthtml";
 
+if (!fs.existsSync("src/tests/__fixtures__/processed")) {
+  fs.mkdirSync("src/tests/__fixtures__/processed");
+}
+
 const buffer = fs.readFileSync(
   path.resolve(__dirname, "__fixtures__/original/bundle.min.[hash].js")
 );
 
-test.equal(replaceHash("[hash].js", buffer), "b0dcc67ffc1fd562f212.js");
+const DEFAULT_HASH_LENGTH = 20;
+const DEFAULT_PATTERN = new RegExp(/\[hash.*]/g);
+
 test.equal(
-  replaceHash("script.[hash].js", buffer),
+  replaceHash("[hash].js", buffer, DEFAULT_PATTERN, DEFAULT_HASH_LENGTH),
+  "b0dcc67ffc1fd562f212.js"
+);
+test.equal(
+  replaceHash("script.[hash].js", buffer, DEFAULT_PATTERN, DEFAULT_HASH_LENGTH),
   "script.b0dcc67ffc1fd562f212.js"
 );
 test.equal(
-  replaceHash("script.[hash:20].js", buffer),
+  replaceHash(
+    "script.[hash:20].js",
+    buffer,
+    DEFAULT_PATTERN,
+    DEFAULT_HASH_LENGTH
+  ),
   "script.b0dcc67ffc1fd562f212.js"
 );
-test.equal(replaceHash("script.[hash:8].js", buffer), "script.b0dcc67f.js");
-test.throws(() => replaceHash("script.js", buffer));
-test.throws(() => replaceHash("script[].js", buffer));
-test.throws(() => replaceHash("script.[has:8].js", buffer));
-test.throws(() => replaceHash("script.js", buffer));
+test.equal(
+  replaceHash(
+    "script.[hash:8].js",
+    buffer,
+    DEFAULT_PATTERN,
+    DEFAULT_HASH_LENGTH
+  ),
+  "script.b0dcc67f.js"
+);
+test.throws(() =>
+  replaceHash("script.js", buffer, DEFAULT_PATTERN, DEFAULT_HASH_LENGTH)
+);
+test.throws(() =>
+  replaceHash("script[].js", buffer, DEFAULT_PATTERN, DEFAULT_HASH_LENGTH)
+);
+test.throws(() =>
+  replaceHash("script.[has:8].js", buffer, DEFAULT_PATTERN, DEFAULT_HASH_LENGTH)
+);
+test.throws(() =>
+  replaceHash("script.js", buffer, DEFAULT_PATTERN, DEFAULT_HASH_LENGTH)
+);
+
+const CUSTOM_EXP = new RegExp(/\[oh-my-hash.*]/g);
+
+test.equal(
+  replaceHash("[oh-my-hash].js", buffer, CUSTOM_EXP, DEFAULT_HASH_LENGTH),
+  "b0dcc67ffc1fd562f212.js"
+);
+test.equal(
+  replaceHash("script.[oh-my-hash].js", buffer, CUSTOM_EXP, 8),
+  "script.b0dcc67f.js"
+);
 
 function copyFixture(fileName: string) {
   const file = path.join(__dirname, "__fixtures__/original", fileName);
