@@ -65,6 +65,17 @@ test.equal(
   "script.b0dcc67f.js"
 );
 
+const CUSTOM_EXP_2 = new RegExp(/\oh-my-hash/);
+
+test.equal(
+  replaceHash("oh-my-hash.js", buffer, CUSTOM_EXP_2, DEFAULT_HASH_LENGTH),
+  "b0dcc67ffc1fd562f212.js"
+);
+test.equal(
+  replaceHash("script.oh-my-hash.js", buffer, CUSTOM_EXP_2, 8),
+  "script.b0dcc67f.js"
+);
+
 function copyFixture(fileName: string) {
   const file = path.join(__dirname, "__fixtures__/original", fileName);
   fs.copyFileSync(
@@ -94,6 +105,29 @@ async function fixture() {
   test.equal(
     result.html.replace(/\n|\s+/g, ""),
     '<html><head><linkrel="stylesheet"href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i"><linkrel="stylesheet"href="bundle.min.9a6cf95c41e87b9dc102.css"></head><body><scriptsrc="bundle.min.b0dcc67ffc1fd562f212.js"></script></body></html>'
+  );
+
+  copyFixture("script.oh-my-hash.js");
+
+  const result2 = await posthtml()
+    .use(
+      hash({
+        path: "src/tests/__fixtures__/processed",
+        pattern: new RegExp(/\oh-my-hash/),
+        hashLength: 8,
+      })
+    )
+    .process(
+      `<html>
+        <body>
+          <script src="script.oh-my-hash.js"></script>
+        </body>
+      </html>`
+    );
+
+  test.equal(
+    result2.html.replace(/\n|\s+/g, ""),
+    '<html><body><scriptsrc="script.b0dcc67f.js"></script></body></html>'
   );
 }
 
