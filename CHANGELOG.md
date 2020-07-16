@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- ## Unreleased -->
 
+## [1.1.1](https://github.com/metonym/posthtml-hash/releases/tag/v1.1.1) - 2020-07-16
+
+- Update README, add custom hash to the `examples` folder
+
+- Bump development dependencies
+
 ## [1.1.0](https://github.com/metonym/posthtml-hash/releases/tag/v1.1.0) - 2020-07-16
 
 - Add custom `pattern` option for matching file names
