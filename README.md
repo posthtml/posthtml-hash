@@ -2,7 +2,7 @@
 
 [![NPM][npm]][npm-url]
 
-`posthtml-hash` is a [PostHTML](https://github.com/posthtml/posthtml) plugin for hashing static assets to enable caching.
+`posthtml-hash` is a [PostHTML](https://github.com/posthtml/posthtml) plugin for hashing file names to enable caching.
 
 ```diff
 <html>
@@ -29,7 +29,7 @@ npm i -D posthtml-hash
 
 ### Input
 
-The plugin will only attempt to hash files with `[hash]` in the name.
+By default, the plugin will attempt to hash file names that contain `[hash]`. As a qualifier, only nodes with a `href` or `src` attribute are considered.
 
 ```html
 <html>
@@ -81,22 +81,11 @@ For convenience, you can add the post-build script to your package.json. The `po
 }
 ```
 
-### Options
-
-This plugin assumes that the file to process is in the same directory as the posthtml script. If not, specify the relative path to the html file in `options.path`:
-
-```js
-hash({
-  /**
-   * Relative path to processed HTML file
-   */
-  path: "public", // default: ""
-});
-```
-
 ### Custom Hash Length
 
 Customize the hash length by specifying an integer after the `hash:{NUMBER}`. The default hash length is `20`.
+
+**Note**: This only works for a pattern that uses square brackets and a colon separator. Use the `hashLength` option for other use cases.
 
 ```html
 <script src="src.[hash].js"></script>
@@ -104,6 +93,47 @@ Customize the hash length by specifying an integer after the `hash:{NUMBER}`. Th
 
 <script src="src.[hash:8].js"></script>
 <!-- src.b0dcc67f.js -->
+```
+
+### Options
+
+This plugin assumes that the file to process is in the same directory as the PostHTML script. If not, specify the relative path to the html file in `options.path`:
+
+```js
+hash({
+  /**
+   * Relative path to processed HTML file
+   */
+  path: "public", // default: ""
+
+  /**
+   * File name pattern (regular expression) to match
+   */
+  pattern: new RegExp(/\custom-file-pattern/), // default: new RegExp(/\[hash.*]/g)
+
+  /**
+   * Custom hash length
+   */
+  hashLength: 8, // default: 20
+});
+```
+
+## Recipes
+
+### Custom Pattern and Hash Length
+
+```js
+hash({
+  pattern: new RegExp(/\custom-file-pattern/),
+  hashLength: 8,
+});
+```
+
+Result:
+
+```diff
+- <script src="script.custom-file-pattern.js"></script>
++ <script src="script.b0dcc67f.js"></script>
 ```
 
 ## [Examples](examples)
