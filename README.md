@@ -124,7 +124,7 @@ hash({
 
 ```js
 hash({
-  pattern: new RegExp(/\custom-file-pattern/),
+  pattern: new RegExp(/custom-file-pattern/),
   hashLength: 8,
 });
 ```

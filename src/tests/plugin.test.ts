@@ -76,6 +76,22 @@ test.equal(
   "script.b0dcc67f.js"
 );
 
+const CUSTOM_EXP_3 = new RegExp(/custom-hash/);
+
+test.equal(
+  replaceHash(
+    "script.custom-hash.js",
+    buffer,
+    CUSTOM_EXP_3,
+    DEFAULT_HASH_LENGTH
+  ),
+  "script.b0dcc67ffc1fd562f212.js"
+);
+test.equal(
+  replaceHash("script.custom-hash.js", buffer, CUSTOM_EXP_3, 4),
+  "script.b0dc.js"
+);
+
 function copyFixture(fileName: string) {
   const file = path.join(__dirname, "__fixtures__/original", fileName);
   fs.copyFileSync(
