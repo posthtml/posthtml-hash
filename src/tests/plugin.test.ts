@@ -83,7 +83,6 @@ async function fixture() {
         pattern: new RegExp(/oh-my-hash/),
         hashLength: 8,
         transformPath: (filepath) => {
-          console.log("-->", filepath);
           return filepath;
         },
       })
@@ -92,13 +91,14 @@ async function fixture() {
       `<html>
         <body>
           <script src="script.oh-my-hash.js"></script>
+          <script src="script.oh-my-hash.js"></script>
         </body>
       </html>`
     );
 
   test.strictEqual(
     result2.html.replace(/\n|\s+/g, ""),
-    '<html><body><scriptsrc="script.b0dcc67f.js"></script></body></html>'
+    '<html><body><scriptsrc="script.b0dcc67f.js"></script><scriptsrc="script.b0dcc67f.js"></script></body></html>'
   );
 }
 
