@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- ## Unreleased -->
 
+## [1.2.2](https://github.com/metonym/posthtml-hash/releases/tag/v1.2.2) - 2020-11-25
+
+- republish
+
 ## [1.2.1](https://github.com/metonym/posthtml-hash/releases/tag/v1.2.1) - 2020-11-25
 
 - fix: use previously hashed file name if it exists
