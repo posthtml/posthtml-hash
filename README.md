@@ -34,17 +34,17 @@ By default, the plugin will attempt to hash file names that contain `[hash]`. As
 ```html
 <html>
   <head>
-    <!-- hashed -->
+    <!-- ✅ hashed -->
     <link rel="stylesheet" href="style.[hash].css" />
 
-    <!-- not hashed -->
+    <!-- ❌ not hashed -->
     <link rel="stylesheet" href="reset.css" />
   </head>
   <body>
-    <!-- hashed -->
+    <!-- ✅ hashed -->
     <script src="src.[hash].js"></script>
 
-    <!-- not hashed -->
+    <!-- ❌ not hashed -->
     <script src="analytics.js"></script>
   </body>
 </html>
@@ -143,6 +143,27 @@ Result:
 ```diff
 - <script src="script.custom-file-pattern.js"></script>
 + <script src="script.b0dcc67f.js"></script>
+```
+
+### Remote origin URLs
+
+Input HTML:
+
+```html
+<head>
+  <meta charset="utf-8" />
+  <!-- We want to hash this image file name and preserve the remote origin URL -->
+  <meta property="og:image" content="https://example.com/image.[hash].png" />
+</head>
+```
+
+```js
+hash({
+  transformPath: (filepath) => {
+    // removes the targeted remote origin URL when looking up the files locally
+    return filepath.replace("https://example.com/", "");
+  },
+});
 ```
 
 ## Examples
