@@ -1,6 +1,6 @@
 {
   "name": "posthtml-hash",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "description": "PostHTML plugin for hashing static assets",
   "author": "Eric Liu (https://github.com/metonym)",

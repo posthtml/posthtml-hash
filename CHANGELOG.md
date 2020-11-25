@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- ## Unreleased -->
 
+## [1.2.1](https://github.com/metonym/posthtml-hash/releases/tag/v1.2.1) - 2020-11-25
+
+- fix: use previously hashed file name if it exists
+
 ## [1.2.0](https://github.com/metonym/posthtml-hash/releases/tag/v1.2.0) - 2020-11-25
 
 - Expand attribute matchers (`href`, `src`) to include "content"

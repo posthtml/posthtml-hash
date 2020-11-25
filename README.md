@@ -180,5 +180,5 @@ See the [PostHTML Guidelines](https://github.com/posthtml/posthtml/tree/master/d
 
 [MIT](LICENSE)
 
-[npm]: https://img.shields.io/npm/v/posthtml-hash.svg?color=blue
+[npm]: https://img.shields.io/npm/v/posthtml-hash.svg?color=%23fb7954
 [npm-url]: https://npmjs.com/package/posthtml-hash
