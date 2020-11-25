@@ -25,6 +25,8 @@ interface PostHTMLHashOptions {
 }
 
 function plugin(options?: PostHTMLHashOptions) {
+  const hashedUrls = new Map<string, string>();
+
   return function posthtmlHash(tree: Node) {
     const exp = options?.pattern || DEFAULT_PATTERN;
     const hashLength = options?.hashLength || DEFAULT_HASH_LENGTH;
@@ -38,19 +40,28 @@ function plugin(options?: PostHTMLHashOptions) {
       const pathToFile = options?.path || "";
       const file = path.join(process.cwd(), pathToFile, transformedFileName!);
 
-      if (fs.existsSync(file)) {
-        const buffer = fs.readFileSync(file);
-        const hashedFileName = replaceHash(fileName!, buffer, exp, hashLength);
-        const transformedHashedFileName = transformPath(hashedFileName);
-        const hashedFile = path.join(process.cwd(), pathToFile, transformedHashedFileName);
+      if (hashedUrls.has(file)) {
+        const existingHashedUrl = hashedUrls.get(file);
 
-        fs.renameSync(file, hashedFile);
-
-        if (href) _node.attrs.href = hashedFileName;
-        if (src) _node.attrs.src = hashedFileName;
-        if (content) _node.attrs.content = hashedFileName;
+        if (href) _node.attrs.href = existingHashedUrl;
+        if (src) _node.attrs.src = existingHashedUrl;
+        if (content) _node.attrs.content = existingHashedUrl;
       } else {
-        console.log("File does not exist:", file);
+        if (fs.existsSync(file)) {
+          const buffer = fs.readFileSync(file);
+          const hashedFileName = replaceHash(fileName!, buffer, exp, hashLength);
+          const transformedHashedFileName = transformPath(hashedFileName);
+          const hashedFile = path.join(process.cwd(), pathToFile, transformedHashedFileName);
+
+          fs.renameSync(file, hashedFile);
+          hashedUrls.set(file, hashedFileName);
+
+          if (href) _node.attrs.href = hashedFileName;
+          if (src) _node.attrs.src = hashedFileName;
+          if (content) _node.attrs.content = hashedFileName;
+        } else {
+          console.log("File does not exist:", file);
+        }
       }
 
       return node;
