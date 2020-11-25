@@ -29,23 +29,23 @@ npm i -D posthtml-hash
 
 ### Input
 
-By default, the plugin will attempt to hash file names that contain `[hash]`. As a qualifier, only nodes with a `href` or `src` attribute are considered.
+By default, the plugin will attempt to hash file names that contain `[hash]`. As an additional qualifier, only nodes containing `href`, `src`, or `content` attributes are eligible.
 
 ```html
 <html>
   <head>
-    <!-- not hashed -->
-    <link rel="stylesheet" href="reset.css" />
-
     <!-- hashed -->
     <link rel="stylesheet" href="style.[hash].css" />
+
+    <!-- not hashed -->
+    <link rel="stylesheet" href="reset.css" />
   </head>
   <body>
-    <!-- not hashed -->
-    <script src="analytics.js"></script>
-
     <!-- hashed -->
     <script src="src.[hash].js"></script>
+
+    <!-- not hashed -->
+    <script src="analytics.js"></script>
   </body>
 </html>
 ```
@@ -85,7 +85,7 @@ For convenience, you can add the post-build script to your package.json. The `po
 
 Customize the hash length by specifying an integer after the `hash:{NUMBER}`. The default hash length is `20`.
 
-**Note**: This only works for a pattern that uses square brackets and a colon separator. Use the `hashLength` option for other use cases.
+**Note**: This only works for a pattern that uses square brackets and a colon separator. Use the `hashLength` option for different patterns.
 
 ```html
 <script src="src.[hash].js"></script>
@@ -102,19 +102,28 @@ This plugin assumes that the file to process is in the same directory as the Pos
 ```js
 hash({
   /**
-   * Relative path to processed HTML file
+   * Relative path to the HTML file being processed
+   * @default ""
    */
-  path: "public", // default: ""
+  path: "public",
 
   /**
    * File name pattern (regular expression) to match
+   * @default new RegExp(/\[hash.*]/g)
    */
-  pattern: new RegExp(/\custom-file-pattern/), // default: new RegExp(/\[hash.*]/g)
+  pattern: new RegExp(/custom-file-pattern/),
 
   /**
-   * Custom hash length
+   * Hash length
+   * @default 20
    */
-  hashLength: 8, // default: 20
+  hashLength: 8,
+
+  /**
+   * Transform the href/src/content attribute value to a relative file path
+   * @default (filepath) => filepath
+   */
+  transformPath: (filepath) => filepath.replace("https://example.com/", ""),
 });
 ```
 
@@ -136,7 +145,9 @@ Result:
 + <script src="script.b0dcc67f.js"></script>
 ```
 
-## [Examples](examples)
+## Examples
+
+See the [examples folder](examples) for end-to-end use cases.
 
 ## Contributing
 

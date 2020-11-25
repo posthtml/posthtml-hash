@@ -1,61 +1,56 @@
 import fs from "fs";
 import path from "path";
-import { PostHTML } from "posthtml";
+import { Node } from "posthtml";
 import hasha from "hasha";
 
 const DEFAULT_HASH_LENGTH = 20;
 const DEFAULT_PATTERN = new RegExp(/\[hash.*]/g);
 
-export function replaceHash(
-  str: string,
-  buffer: Buffer,
-  exp: RegExp,
-  hashLength: number
-) {
+export function replaceHash(str: string, buffer: Buffer, exp: RegExp, hashLength: number) {
   const match = str.match(exp);
   const [_, len] = match![0].replace(/\[|]/g, "").split(":");
 
   return str.replace(exp, hasha(buffer).slice(0, Number(len) || hashLength));
 }
 
-type NodeWithHashRegex = { attrs: { href?: string; src?: string } };
+interface NodeWithHashRegex {
+  attrs: { href?: string; src?: string; content?: string };
+}
 
-function plugin(options?: {
+interface PostHTMLHashOptions {
   path?: string;
   hashLength?: number;
   pattern?: RegExp;
-}) {
-  return function posthtmlHash(tree: PostHTML.Node) {
+  transformPath?: (filepath: string) => string;
+}
+
+function plugin(options?: PostHTMLHashOptions) {
+  return function posthtmlHash(tree: Node) {
     const exp = options?.pattern || DEFAULT_PATTERN;
     const hashLength = options?.hashLength || DEFAULT_HASH_LENGTH;
+    const transformPath = options?.transformPath || ((filepath) => filepath);
 
-    tree.match([{ attrs: { href: exp } }, { attrs: { src: exp } }], (node) => {
+    tree.match([{ attrs: { href: exp } }, { attrs: { src: exp } }, { attrs: { content: exp } }], (node) => {
       const _node = (node as unknown) as NodeWithHashRegex;
-      const { href, src } = _node.attrs;
-
-      let fileName = "";
-
-      if (href) {
-        fileName = href;
-      } else if (src) {
-        fileName = src;
-      }
-
+      const { href, src, content } = _node.attrs;
+      const fileName = href! || src! || content!;
+      const transformedFileName = transformPath(fileName);
       const pathToFile = options?.path || "";
-      const file = path.join(process.cwd(), pathToFile, fileName);
+      const file = path.join(process.cwd(), pathToFile, transformedFileName!);
 
       if (fs.existsSync(file)) {
         const buffer = fs.readFileSync(file);
-        const hashedFileName = replaceHash(fileName, buffer, exp, hashLength);
-        const hashedFile = path.join(process.cwd(), pathToFile, hashedFileName);
+        const hashedFileName = replaceHash(fileName!, buffer, exp, hashLength);
+        const transformedHashedFileName = transformPath(hashedFileName);
+        const hashedFile = path.join(process.cwd(), pathToFile, transformedHashedFileName);
 
         fs.renameSync(file, hashedFile);
 
-        if (href) {
-          _node.attrs.href = hashedFileName;
-        } else if (src) {
-          _node.attrs.src = hashedFileName;
-        }
+        if (href) _node.attrs.href = hashedFileName;
+        if (src) _node.attrs.src = hashedFileName;
+        if (content) _node.attrs.content = hashedFileName;
+      } else {
+        console.log("File does not exist:", file);
       }
 
       return node;
