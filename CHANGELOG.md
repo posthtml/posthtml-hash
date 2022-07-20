@@ -9,11 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.2.2](https://github.com/metonym/posthtml-hash/releases/tag/v1.2.2) - 2020-11-25
 
-- republish
+- Republish
 
 ## [1.2.1](https://github.com/metonym/posthtml-hash/releases/tag/v1.2.1) - 2020-11-25
 
-- fix: use previously hashed file name if it exists
+- Use previously hashed file name if it exists
 
 ## [1.2.0](https://github.com/metonym/posthtml-hash/releases/tag/v1.2.0) - 2020-11-25
 
@@ -22,21 +22,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.1](https://github.com/metonym/posthtml-hash/releases/tag/v1.1.1) - 2020-07-16
 
-- Update README, add custom hash to the `examples` folder
-
-- Bump development dependencies
+- Update README, add custom hash example
 
 ## [1.1.0](https://github.com/metonym/posthtml-hash/releases/tag/v1.1.0) - 2020-07-16
 
 - Add custom `pattern` option for matching file names
-
 - Add `hashLength` option to override default hash length
 
 ## [1.0.0](https://github.com/metonym/posthtml-hash/releases/tag/v1.0.0) - 2020-05-09
 
-- Refactor API to only hash files with `[hash]` in the file name (hash length is adjustable with the pattern `[hash:${length}]`)
-
-- Replace `jest` with Node.js native `assert` (removes ~250k sub-dependencies)
+- Refactor API to only hash files with `[hash]` in the file name; hash length is adjustable with the pattern `[hash:${length}]`
 
 ## [0.3.0](https://github.com/metonym/posthtml-hash/releases/tag/v0.3.0) - 2020-05-04
 
@@ -49,17 +44,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.2](https://github.com/metonym/posthtml-hash/releases/tag/v0.2.2) - 2019-10-17
 
-- Upgrade posthtml version from 0.11.16 to 0.12.0
-
-- Upgrade hasha from 5.0.0 to 5.1.0
-
-- Upgrade development dependencies (@types/jest, husky, prett-quick)
+- Upgrade `posthtml` from 0.11.16 to 0.12.0
+- Upgrade `hasha` from 5.0.0 to 5.1.0
 
 ## [0.2.1](https://github.com/metonym/posthtml-hash/releases/tag/v0.2.1) - 2019-09-21
 
-- Upgrade posthtml version from 0.11.15 to 0.11.16
-
-- Refactor typings
+- Upgrade `posthtml` from 0.11.15 to 0.11.16
+- Refactor type definitions
 
 ## [0.2.0](https://github.com/metonym/posthtml-hash/releases/tag/v0.2.0) - 2019-08-26
 
