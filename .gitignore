@@ -1,7 +1,4 @@
 .DS_Store
-/.vscode
-/lib
-/node_modules
-/src/tests/__fixtures__/processed
-yarn-debug.log*
-yarn-error.log*
+dist
+node_modules
+tests/__fixtures__/processed
