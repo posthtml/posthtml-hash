@@ -139,8 +139,10 @@ jsonfile@^6.0.1:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
-posthtml-hash@../../:
-  version "1.2.0"
+posthtml-hash@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/posthtml-hash/-/posthtml-hash-1.2.2.tgz#cb5dfd6dc4c234901edad05ac185b2ddfe73ac04"
+  integrity sha512-Va1wBdHUp/26z464EvreCUTZQe6F5bKm/kYFjWjB7ncyFxUi8ke68Qusoy6BZLitY7wEolpZPe0tkdLPT9QllQ==
   dependencies:
     hasha "^5.2.2"
     posthtml "^0.15.0"
