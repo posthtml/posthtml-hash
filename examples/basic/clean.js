@@ -1,4 +1,4 @@
-const fs = require('fs-extra');
+const fs = require("fs-extra");
 
-fs.removeSync('processed');
-fs.copySync('original', 'processed');
+fs.removeSync("processed");
+fs.copySync("original", "processed");

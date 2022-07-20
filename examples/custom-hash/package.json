@@ -1,7 +1,4 @@
 {
-  "name": "custom-hash",
-  "version": "1.0.0",
-  "main": "script.js",
   "private": true,
   "scripts": {
     "clean": "node clean.js",
@@ -10,6 +7,6 @@
   "devDependencies": {
     "fs-extra": "^9.0.0",
     "posthtml": "^0.13.0",
-    "posthtml-hash": "../../"
+    "posthtml-hash": "^1.2.2"
   }
 }

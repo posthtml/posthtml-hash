@@ -20,9 +20,14 @@
 ## Install
 
 ```bash
+# Yarn
 yarn add -D posthtml-hash
-# OR
+
+# npm
 npm i -D posthtml-hash
+
+# pnpm
+pnpm i -D posthtml-hash
 ```
 
 ## Usage

@@ -1,15 +1,12 @@
 {
-  "name": "transform-path",
-  "version": "1.0.0",
-  "main": "script.js",
   "private": true,
   "scripts": {
     "clean": "node clean.js",
     "hash": "node script.js"
   },
   "devDependencies": {
-    "fs-extra": "^9.0.1",
-    "posthtml": "^0.15.0",
-    "posthtml-hash": "../../"
+    "fs-extra": "^10.1.0",
+    "posthtml": "^0.16.6",
+    "posthtml-hash": "^1.2.2"
   }
 }
